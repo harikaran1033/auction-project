@@ -17,27 +17,26 @@ app.use(express.json());
 const server = createServer(app);
 
 const allowedOrigins = [
-  "http://localhost:5173",                
-  "https://auction-project-chi.vercel.app"  
+  "http://localhost:5173",
+  "https://auction-project-d05bzbkjt-harikarans-projects-d40d8bb8.vercel.app"
 ];
 
-app.use(cors({
-  origin: function(origin, callback){
-    if(!origin) return callback(null, true); // allow Postman, etc.
-    if(!allowedOrigins.includes(origin)){
-      return callback(new Error("CORS not allowed"), false);
-    }
-    return callback(null, true);
-  },
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
 
 const io = new Server(server, {
   cors: {
-    origin:allowedOrigins,
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
+    credentials: true,
   },
 });
+
 
 // MongoDB connection
 mongoose
