@@ -18,13 +18,13 @@ const server = createServer(app);
 
 const allowedOrigins = [
   "http://localhost:5173",                
-  "https://auction-project-chi.vercel.app/"  
+  "https://auction-project-chi.vercel.app"  
 ];
 
 app.use(cors({
   origin: function(origin, callback){
-    if(!origin) return callback(null, true); // allow non-browser requests (Postman, etc.)
-    if(allowedOrigins.indexOf(origin) === -1){
+    if(!origin) return callback(null, true); // allow Postman, etc.
+    if(!allowedOrigins.includes(origin)){
       return callback(new Error("CORS not allowed"), false);
     }
     return callback(null, true);
